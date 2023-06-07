@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "hello flask"
+    return render_template("home.html", name="Mais")  # passing variable to page
 
 
 @app.route("/about")
@@ -16,3 +16,4 @@ def about():
 
 if __name__ == "__main__":
     app.run()
+# python app.py
