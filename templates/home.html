@@ -2,7 +2,11 @@
 <h1>URL Shortner</h1>
 
 <form action="your-url" method="post">
-  <input type="url" name="url" id="url" />
-  <input type="text" name="code" id="code" />
+  <label for="url">Website URL</label>
+  <input type="url" name="url" id="url" required />
+  <br />
+  <label for="code">shortname</label>
+  <input type="text" name="code" id="code" required />
+  <br />
   <input type="submit" value="shorten" />
 </form>
