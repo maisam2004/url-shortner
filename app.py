@@ -16,10 +16,10 @@ def about():
 # request.args["code"] for get info from request
 # code=request.args["code"] ONLY FOR GET REQUESTS
 # for posts methods code=request.form.get["code"]
-@app.route("/your_url", methods=["GET", "POST"])
+@app.route("/yoururl", methods=["GET", "POST"])
 def your_url():
     if request.method == "POST":
-        return render_template("your_url.html", code=request.form.get("code"))
+        return render_template("yoururl.html", code=request.form["code"])
     else:
         return "This is not valid "
 
