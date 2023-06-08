@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import json
 import os.path
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "ksdjflakjdflksjfll"
@@ -29,11 +30,17 @@ def your_url():  # sourcery skip: merge-dict-assign
         with open("ursls.json") as jfile:
             url = json.load(jfile)
 
-    if request.form["code"] in url.keys():
+    if request.form["code"] in url.keys():  # created dictionary
         flash("the shortname already been taken.")
         return redirect(url_for("home"))
+    if "url" in request.form.keys():
+        url[request.form["code"]] = {"url": request.form["url"]}
+    else:
+        f = request.files["file"]
+        full_name = request.form["code"] + secure_filename(f.filename)
+        f.save("E:\\learned\\flask_linkedin\\url-shortner\\app.py\\" + full_name)
+        url[request.form["code"]] = {"file": full_name}
 
-    url[request.form["code"]] = {"url": request.form["url"]}
     with open("ursls.json", "w") as jfile:
         json.dump(url, jfile)
 
@@ -42,6 +49,8 @@ def your_url():  # sourcery skip: merge-dict-assign
     )
     # but if it is only redirect need to giv app.route slash item>> '/'
 
+
+# E:\\learned\\flask_linkedin\\url-shortner\\app.py
 
 # redirect to rout app
 # redirect("/")  redirect to rout app
