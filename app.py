@@ -33,12 +33,14 @@ def your_url():  # sourcery skip: merge-dict-assign
     if request.form["code"] in url.keys():  # created dictionary
         flash("the shortname already been taken.")
         return redirect(url_for("home"))
-    if "url" in request.form.keys():
+    if "url" in request.form.keys():  # to check request is for file or url shortening
         url[request.form["code"]] = {"url": request.form["url"]}
     else:
         f = request.files["file"]
         full_name = request.form["code"] + secure_filename(f.filename)
-        f.save("E:\\learned\\flask_linkedin\\url-shortner\\app.py\\" + full_name)
+
+        save_path = "E:\\learned\\flask_linkedin\\url-shortner\\" + full_name
+        f.save(save_path)
         url[request.form["code"]] = {"file": full_name}
 
     with open("ursls.json", "w") as jfile:
@@ -55,6 +57,8 @@ def your_url():  # sourcery skip: merge-dict-assign
 # redirect to rout app
 # redirect("/")  redirect to rout app
 
+
+#
 
 if __name__ == "__main__":
     app.run(debug=True)
