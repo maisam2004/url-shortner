@@ -34,7 +34,9 @@ def your_url():  # sourcery skip: merge-dict-assign
         flash("the shortname already been taken.")
         return redirect(url_for("home"))
     if "url" in request.form.keys():  # to check request is for file or url shortening
-        url[request.form["code"]] = {"url": request.form["url"]}
+        url[request.form["code"]] = {
+            "url": request.form["url"]
+        }  # creat diction in url dic
     else:
         f = request.files["file"]
         full_name = request.form["code"] + secure_filename(f.filename)
@@ -44,7 +46,7 @@ def your_url():  # sourcery skip: merge-dict-assign
         url[request.form["code"]] = {"file": full_name}
 
     with open("ursls.json", "w") as jfile:
-        json.dump(url, jfile)
+        json.dump(url, jfile)  # put all urls to json file
 
     return render_template(
         "yoururl.html", code=request.form["code"], whole=request.form
