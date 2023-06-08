@@ -1,6 +1,10 @@
 {{name}}
 <h1>URL Shortner</h1>
 
+{% for massage in get_flashed_messages() %}
+<h3>{{ massage }}</h3>
+{% endfor %}
+
 <form action="yoururl" method="POST">
   <label for="url">Website URL</label>
   <input type="url" name="url" id="url" required />

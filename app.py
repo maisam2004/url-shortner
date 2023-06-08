@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import json
 import os.path
 
 app = Flask(__name__)
+app.secret_key = "ksdjflakjdflksjfll"
 
 
 @app.route("/")
@@ -29,6 +30,7 @@ def your_url():  # sourcery skip: merge-dict-assign
             url = json.load(jfile)
 
     if request.form["code"] in url.keys():
+        flash("the shortname already been taken.")
         return redirect(url_for("home"))
 
     url[request.form["code"]] = {"url": request.form["url"]}
