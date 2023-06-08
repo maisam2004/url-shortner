@@ -58,7 +58,18 @@ def your_url():  # sourcery skip: merge-dict-assign
 # redirect("/")  redirect to rout app
 
 
-#
+# redirect ot page of webaddress with code of shortend
+
+
+@app.route("/<string:code>")
+def redirect_to_url(code):
+    if os.path.exists("ursls.json"):
+        with open("ursls.json") as jfile:
+            urls = json.load(jfile)
+        if code in urls.keys():
+            if "url" in urls[code].keys():  # make sure inside is url not file
+                return redirect(urls[code]["url"])
+
 
 if __name__ == "__main__":
     app.run(debug=True)
