@@ -40,7 +40,9 @@ def your_url():  # sourcery skip: merge-dict-assign
     else:
         f = request.files["file"]
         full_name = request.form["code"] + secure_filename(f.filename)
-        UPLOAD_FOLDER = "E:\\learned\\flask_linkedin\\url-shortner\\"
+        UPLOAD_FOLDER = (
+            "E:\\learned\\flask_linkedin\\url-shortner\\static\\user_files\\"
+        )
         save_path = UPLOAD_FOLDER + full_name
         f.save(save_path)
         url[request.form["code"]] = {"file": full_name}
@@ -71,6 +73,10 @@ def redirect_to_url(code):
         if code in urls.keys():
             if "url" in urls[code].keys():  # make sure inside is url not file
                 return redirect(urls[code]["url"])
+            else:
+                return redirect(
+                    url_for("static", filename="user_files\\" + urls[code]["file"])
+                )
 
 
 if __name__ == "__main__":
