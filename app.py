@@ -38,8 +38,8 @@ def your_url():  # sourcery skip: merge-dict-assign
     else:
         f = request.files["file"]
         full_name = request.form["code"] + secure_filename(f.filename)
-
-        save_path = "E:\\learned\\flask_linkedin\\url-shortner\\" + full_name
+        UPLOAD_FOLDER = "E:\\learned\\flask_linkedin\\url-shortner\\"
+        save_path = UPLOAD_FOLDER + full_name
         f.save(save_path)
         url[request.form["code"]] = {"file": full_name}
 
