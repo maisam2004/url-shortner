@@ -1,0 +1,29 @@
+section {
+    display: inline-block;
+    width: 46%;
+    text-align: center;
+    padding: 1rem;
+}
+
+form {
+    background-color: black;
+    padding: 1rem;
+}
+
+form .btn {
+    padding: 0.5em;
+    font-size: 1.2em;
+    font-weight: 600;
+    width: 7rem;
+    background-color: blueviolet;
+
+}
+
+@media (max-width: 550px) {
+    section {
+        display: block;
+        width: 99%;
+        text-align: center;
+        padding: 0.5rem;
+    }
+}
