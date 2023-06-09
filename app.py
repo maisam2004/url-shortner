@@ -1,4 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, abort
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    abort,
+    session,
+)
 import json
 import os.path
 from werkzeug.utils import secure_filename
@@ -54,7 +63,7 @@ def your_url():  # sourcery skip: merge-dict-assign
 
     with open("ursls.json", "w") as jfile:
         json.dump(url, jfile)  # put all urls to json file
-
+        session[request.form["code"]] = True  # created session for eache link created
     return render_template(
         "yoururl.html", code=request.form["code"], whole=request.form
     )
