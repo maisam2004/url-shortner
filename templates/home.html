@@ -33,7 +33,7 @@
   {% for code in codes %}
   <li>
     <!-- <h3><a href="/{{code}}"> {{code}}</a></h3> -->
-    <h3><a href="{{url_for('redirect_to_url')}}"></a> {{code}}</h3>
+    <h3><a href="{{url_for('redirect_to_url',code = code)}}"></a> {{code}}</h3>
   </li>
   {% endfor %}
 </ul>
