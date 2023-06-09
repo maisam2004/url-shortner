@@ -7,6 +7,7 @@ from flask import (
     flash,
     abort,
     session,
+    jsonify,  # take any list or dictionary and turn it to json code
 )
 import json
 import os.path
@@ -99,6 +100,12 @@ def redirect_to_url(code):
 @app.errorhandler(404)
 def page_not_find(error):
     return render_template("page_not_find.html"), 404
+
+
+# create app route to create api from data with jsonify
+@app.route("/api")
+def session_api():
+    return jsonify(list(session.keys()))
 
 
 if __name__ == "__main__":
