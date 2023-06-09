@@ -24,3 +24,17 @@
   <br />
   <input type="submit" value="shorten" />
 </form>
+<hr />
+<br />
+<!-- to check we have any session codes to display  , with if statement-->
+{% if codes %}
+
+<ul>
+  {% for code in codes %}
+  <li>
+    <h3><a href="/{{code}}"> {{code}}</a></h3>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endif %}

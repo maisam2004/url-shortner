@@ -18,7 +18,9 @@ app.secret_key = "ksdjflakjdflksjfll"
 
 @app.route("/")
 def home():
-    return render_template("home.html", name="Mais")  # passing variable to page
+    return render_template(
+        "home.html", codes=session.keys()
+    )  # passing variable to page
 
 
 @app.route("/about")
