@@ -38,7 +38,9 @@ def notfound():
 @bp.route("/yoururl", methods=["GET", "POST"])
 def your_url():  # sourcery skip: merge-dict-assign
     if request.method != "POST":
-        return redirect(url_for("home"))  # redirect with url_for should give function
+        return redirect(
+            url_for("urlshort.home")
+        )  # redirect with url_for should give function
     url = {}
     if os.path.exists("ursls.json"):
         with open("ursls.json") as jfile:
@@ -46,7 +48,7 @@ def your_url():  # sourcery skip: merge-dict-assign
 
     if request.form["code"] in url.keys():  # created dictionary
         flash("the shortname already been taken.")
-        return redirect(url_for("home"))
+        return redirect(url_for("urlshort.home"))
     if "url" in request.form.keys():  # to check request is for file or url shortening
         url[request.form["code"]] = {
             "url": request.form["url"]
@@ -55,7 +57,7 @@ def your_url():  # sourcery skip: merge-dict-assign
         f = request.files["file"]
         full_name = request.form["code"] + secure_filename(f.filename)
         UPLOAD_FOLDER = (
-            "E:\\learned\\flask_linkedin\\url-shortner\\static\\user_files\\"
+            "E:\\learned\\flask_linkedin\\url-shortner\\urlshort\\static\\user_files\\"
         )
         save_path = UPLOAD_FOLDER + full_name
         f.save(save_path)
