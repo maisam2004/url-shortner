@@ -1,4 +1,5 @@
 from flask import (
+    Flask,
     render_template,
     request,
     redirect,
@@ -7,26 +8,26 @@ from flask import (
     abort,
     session,
     jsonify,  # take any list or dictionary and turn it to json code
-    Blueprint,
 )
 import json
 import os.path
 from werkzeug.utils import secure_filename
 
-bp = Blueprint("urlshort", __name__)
+app = Flask(__name__)
+app.secret_key = "ksdjflakjdflksjfll"
 
 
-@bp.route("/")
+@app.route("/")
 def home():
     return render_template("home.html", codes=session.keys())
 
 
-@bp.route("/about")
+@app.route("/about")
 def about():
     return "<h2>this is url shortner </h2>"
 
 
-@bp.route("/notfound")
+@app.route("/notfound")
 def notfound():
     return render_template("page_not_find.html")
 
@@ -35,12 +36,10 @@ def notfound():
 # code=request.args["code"] ONLY FOR GET REQUESTS
 # for posts methods code=request.form["code"]
 # for posts methods code=request.form.get("code")
-@bp.route("/yoururl", methods=["GET", "POST"])
+@app.route("/yoururl", methods=["GET", "POST"])
 def your_url():  # sourcery skip: merge-dict-assign
     if request.method != "POST":
-        return redirect(
-            url_for("urlshort.home")
-        )  # redirect with url_for should give function
+        return redirect(url_for("home"))  # redirect with url_for should give function
     url = {}
     if os.path.exists("ursls.json"):
         with open("ursls.json") as jfile:
@@ -48,7 +47,7 @@ def your_url():  # sourcery skip: merge-dict-assign
 
     if request.form["code"] in url.keys():  # created dictionary
         flash("the shortname already been taken.")
-        return redirect(url_for("urlshort.home"))
+        return redirect(url_for("home"))
     if "url" in request.form.keys():  # to check request is for file or url shortening
         url[request.form["code"]] = {
             "url": request.form["url"]
@@ -57,7 +56,7 @@ def your_url():  # sourcery skip: merge-dict-assign
         f = request.files["file"]
         full_name = request.form["code"] + secure_filename(f.filename)
         UPLOAD_FOLDER = (
-            "E:\\learned\\flask_linkedin\\url-shortner\\urlshort\\static\\user_files\\"
+            "E:\\learned\\flask_linkedin\\url-shortner\\static\\user_files\\"
         )
         save_path = UPLOAD_FOLDER + full_name
         f.save(save_path)
@@ -81,7 +80,7 @@ def your_url():  # sourcery skip: merge-dict-assign
 # redirect ot page of webaddress with code of shortend
 
 
-@bp.route("/<string:code>")
+@app.route("/<string:code>")
 def redirect_to_url(code):
     if os.path.exists("ursls.json"):
         with open("ursls.json") as jfile:
