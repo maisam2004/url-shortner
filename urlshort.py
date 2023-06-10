@@ -16,17 +16,17 @@ from werkzeug.utils import secure_filename
 bp = Blueprint("urlshort", __name__)
 
 
-@app.route("/")
+@bp.route("/")
 def home():
     return render_template("home.html", codes=session.keys())
 
 
-@app.route("/about")
+@bp.route("/about")
 def about():
     return "<h2>this is url shortner </h2>"
 
 
-@app.route("/notfound")
+@bp.route("/notfound")
 def notfound():
     return render_template("page_not_find.html")
 
@@ -35,7 +35,7 @@ def notfound():
 # code=request.args["code"] ONLY FOR GET REQUESTS
 # for posts methods code=request.form["code"]
 # for posts methods code=request.form.get("code")
-@app.route("/yoururl", methods=["GET", "POST"])
+@bp.route("/yoururl", methods=["GET", "POST"])
 def your_url():  # sourcery skip: merge-dict-assign
     if request.method != "POST":
         return redirect(url_for("home"))  # redirect with url_for should give function
@@ -79,7 +79,7 @@ def your_url():  # sourcery skip: merge-dict-assign
 # redirect ot page of webaddress with code of shortend
 
 
-@app.route("/<string:code>")
+@bp.route("/<string:code>")
 def redirect_to_url(code):
     if os.path.exists("ursls.json"):
         with open("ursls.json") as jfile:
