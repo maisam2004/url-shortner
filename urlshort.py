@@ -1,5 +1,4 @@
 from flask import (
-    Flask,
     render_template,
     request,
     redirect,
@@ -8,13 +7,13 @@ from flask import (
     abort,
     session,
     jsonify,  # take any list or dictionary and turn it to json code
+    Blueprint,
 )
 import json
 import os.path
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
-app.secret_key = "ksdjflakjdflksjfll"
+bp = Blueprint("urlshort", __name__)
 
 
 @app.route("/")
