@@ -25,7 +25,9 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    {% for massage in get_flashed_messages() %}
+    <nav></nav>
+
+    {% block main %}{% endblock %} {% for massage in get_flashed_messages() %}
     <h3 style="color: aqua">{{ massage }}</h3>
     {% endfor %} {% block form%}{% endblock %}
   </body>

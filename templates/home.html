@@ -1,76 +1,81 @@
 {% extends 'base.html' %} {% block title %} URL Shortner {% endblock%} {% block
 form %}
 <section class="formone">
-  <form class="bd-example m-1" action="yoururl" method="POST">
-    <!-- Example Code -->
+  <form class="bd-example" action="yoururl" method="POST">
+    <fieldset>
+      <legend>LINK URL</legend>
 
-    <div class="form-floating mb-3">
-      <input
-        type="url"
-        name="url"
-        id="url"
-        class="form-control"
-        placeholder="http://google.com"
-      />
-      <label for="url">website URL</label>
-    </div>
-    <div class="form-floating mb-3">
-      <input
-        class="form-control"
-        placeholder="shortname for url"
-        type="text"
-        name="code"
-        id="code"
-      />
-      <label for="code">shortname</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <!-- End Example Code -->
+      <div class="form-floating mb-3 p-2">
+        <input
+          type="url"
+          name="url"
+          id="url"
+          class="form-control"
+          placeholder="http://google.com"
+        />
+        <label for="url">website URL</label>
+      </div>
+      <div class="form-floating mb-3 p-2">
+        <input
+          class="form-control"
+          placeholder="shortname for url"
+          type="text"
+          name="code"
+          id="code"
+        />
+        <label for="code">shortname</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
   </form>
 </section>
 <section class="formtwo">
   <form
-    class="bd-example m-1"
+    class="bd-example"
     action="yoururl"
     method="POST"
     enctype="multipart/form-data"
   >
-    <!-- Example Code -->
+    <fieldset>
+      <legend>File link</legend>
 
-    <div class="form-floating mb-3">
-      <input
-        type="file"
-        name="file"
-        id="file"
-        class="form-control"
-        placeholder="http://google.com"
-      />
-      <label for="file">Select file</label>
-    </div>
-    <div class="form-floating mb-3">
-      <input
-        class="form-control"
-        placeholder="shortname for url"
-        type="text"
-        name="code"
-        id="code"
-      />
-      <label for="code">shortname</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <!-- End Example Code -->
+      <div class="form-floating mb-3 p-2">
+        <input
+          type="file"
+          name="file"
+          id="file"
+          class="form-control"
+          placeholder="http://google.com"
+        />
+        <label for="file">Select file</label>
+      </div>
+      <div class="form-floating mb-3 p-2">
+        <input
+          class="form-control"
+          placeholder="shortname for url"
+          type="text"
+          name="code"
+          id="code"
+        />
+        <label for="code">shortname</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
   </form>
 </section>
+<article class="list_names">
+  <h2>Shorten names</h2>
+  {% if codes %}
 
-<h2>Shorten names</h2>
-{% if codes %}
-
-<ul>
-  {% for code in codes %}
-  <li>
-    <!-- <h3><a href="/{{code}}"> {{code}}</a></h3> -->
-    <h3><a href="{{url_for('redirect_to_url',code = code)}}"> {{code}}</a></h3>
-  </li>
-  {% endfor %}
-</ul>
+  <ul>
+    {% for code in codes %}
+    <li>
+      <!-- <h3><a href="/{{code}}"> {{code}}</a></h3> -->
+      <h3>
+        <a href="{{url_for('redirect_to_url',code = code)}}"> {{code}}</a>
+      </h3>
+    </li>
+    {% endfor %}
+  </ul>
+</article>
 {% endif %} {% endblock%}
