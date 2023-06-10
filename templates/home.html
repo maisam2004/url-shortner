@@ -72,10 +72,13 @@ form %}
     <li>
       <!-- <h3><a href="/{{code}}"> {{code}}</a></h3> -->
       <h3>
-        <a href="{{url_for('redirect_to_url',code = code)}}"> {{code}}</a>
+        <a href="{{url_for('redirect_to_url',code = code)}}" target="_blank">
+          {{code}}</a
+        >
       </h3>
     </li>
     {% endfor %}
   </ul>
+  {% endif %}
 </article>
-{% endif %} {% endblock%}
+{% endblock%}
